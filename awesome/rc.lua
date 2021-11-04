@@ -62,6 +62,7 @@ editor     = os.getenv("EDITOR") or "vscodium"
 editor_cmd = terminal .. " -e " .. editor
 browser    = "firefox"
 filemgr    = "nemo"
+launcher   = "rofi -show run"
 --screenlocker = "gdbus monitor -y -d org.freedesktop.login1 | grep LockedHint"
 
 
@@ -237,7 +238,7 @@ end)
 
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
-    awful.button({}, 3, function () mymainmenu:toggle() end),
+    awful.button({}, 3, function() mymainmenu:toggle() end),
     awful.button({}, 4, awful.tag.viewnext),
     awful.button({}, 5, awful.tag.viewprev)
 ))
@@ -269,7 +270,7 @@ globalkeys = gears.table.join(
         { description = "Focus next by index",     group = "Window" }),
     awful.key({ altkey, "Shift" }, "Tab", function() awful.client.focus.byidx(-1) end,
         { description = "Focus previous by index", group = "Window" }),
-    -- awful.key({ superkey,           }, "Tab", function ()
+    -- awful.key({ superkey,           }, "Tab", function()
     --         awful.client.focus.history.previous()
 
     --         if client.focus then client.focus:raise() end
@@ -289,7 +290,7 @@ globalkeys = gears.table.join(
     --     { description = "jump to urgent client", group = "Window" }),
 
     -- App launcher
-    awful.key({ superkey },          "r", function() awful.screen.focused().mypromptbox:run() end,
+    awful.key({ superkey },          "r", function() awful.spawn.with_shell(launcher) end,
         { description = "Run prompt",          group = "Application" }),
     awful.key({ "Control", altkey }, "t", function() awful.spawn(terminal) end,
         { description = "Open a Terminal",     group = "Application" }),
@@ -364,15 +365,15 @@ clientkeys = gears.table.join(
         end,
         { description = "toggle fullscreen", group = "client" }),
 
-    awful.key({ superkey, "Shift"   }, "c",      function (c) c:kill()                         end,
+    awful.key({ "Control", superkey }, "w",      function(c) c:kill()                         end,
               { description = "close", group = "client" }),
     awful.key({ superkey, "Control" }, "space",  awful.client.floating.toggle                     ,
               { description = "toggle floating", group = "client" }),
-    awful.key({ superkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
+    awful.key({ superkey, "Control" }, "Return", function(c) c:swap(awful.client.getmaster()) end,
               { description = "move to master", group = "client" }),
-    awful.key({ superkey,           }, "o",      function (c) c:move_to_screen()               end,
+    awful.key({ superkey,           }, "o",      function(c) c:move_to_screen()               end,
               { description = "move to screen", group = "Window" }),
-    awful.key({ superkey,           }, "t",      function (c) c.ontop = not c.ontop            end,
+    awful.key({ superkey,           }, "t",      function(c) c.ontop = not c.ontop            end,
               { description = "toggle keep on top", group = "Window" }),
 
     awful.key({ superkey, }, "Down", function(c)
@@ -484,7 +485,7 @@ awful.rules.rules = {
             keys = clientkeys,
             buttons = clientbuttons,
             screen = awful.screen.preferred,
-            placement = awful.placement.no_overlap + awful.placement.no_offscreen + awful.placement.center
+            placement = awful.placement.centered + awful.placement.no_overlap + awful.placement.no_offscreen
         }
     },
 
@@ -521,7 +522,7 @@ awful.rules.rules = {
             }
       },
       properties = {
-            floating = true
+            floating = true,
         }
     },
 
@@ -544,8 +545,11 @@ awful.rules.rules = {
 
     -- Make borderless on Polybar
     {
-        rule = {
-            class = "Polybar",
+        rule_any = {
+            class = {
+                "Polybar",
+                "tint2",
+            },
         },
         properties = {
             border_width = 0,
@@ -558,7 +562,7 @@ awful.rules.rules = {
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
-client.connect_signal("manage", function (c)
+client.connect_signal("manage", function(c)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
     -- if not awesome.startup then awful.client.setslave(c) end
