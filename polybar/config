@@ -19,18 +19,18 @@
 [colors]
 ;background = ${xrdb:color0:#222}
 background = #AA000000
-background-alt = #444
+;background-alt = #444
 ;foreground = ${xrdb:color7:#222}
 foreground = #FFFFFF
 foreground-alt = #555
 primary = #ffb52a
-secondary = #e60053
+;secondary = #e60053
 alert = #bd2c40
 
 [bar/example]
 ;monitor = ${env:MONITOR:HDMI-1}
 width = 100%
-height = 27
+height = 28
 ;offset-x = 1%
 ;offset-y = 1%
 radius = 6.0
@@ -39,10 +39,10 @@ fixed-center = true
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-line-size = 3
+line-size = 0
 line-color = #f00
 
-border-size = 4
+border-size = 0
 border-color = #00000000
 
 padding-left = 0
@@ -52,9 +52,11 @@ module-margin-left = 1
 module-margin-right = 2
 
 font-0 = fixed:pixelsize=10;1
-font-1 = Font Awesome 5 Free;0
-font-2 = Font Awesome 5 Brands;0
-font-3 = siji:pixelsize=10;1
+font-1 = Material Icons;2
+font-2 = Font Awesome 5 Free:style=Solid;2
+font-3 = Font Awesome 5 Free:style=Regular;2
+font-4 = Font Awesome 5 Brands:style=Regular;2
+font-5 = siji:pixelsize=10;1
 
 modules-left = 
 modules-center = date
@@ -84,19 +86,25 @@ label = %title:0:30:...%
 
 [module/xkeyboard]
 type = internal/xkeyboard
+format = <label-layout> <label-indicator>
 blacklist-0 = num lock
 
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
+format-prefix = ""
+format-prefix-foreground = ${colors.foreground}
 format-prefix-underline = ${colors.secondary}
 
-label-layout = %layout%
+label-layout = %name%
+label-layout-padding = 2
 label-layout-underline = ${colors.secondary}
 
-label-indicator-padding = 2
-label-indicator-margin = 1
+label-indicator = %name:4%
+label-indicator-padding = 0
+label-indicator-margin = 0
 label-indicator-background = ${colors.secondary}
 label-indicator-underline = ${colors.secondary}
+
+label-indicator-on-capslock = ""
+label-indicator-off-capslock = ""
 
 [module/filesystem]
 type = internal/fs
@@ -206,18 +214,18 @@ card = intel_backlight
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
+format-prefix = ""
+format-prefix-foreground = ${colors.foreground}
 format-underline = #f90000
-label = %percentage:2%%
+label = %percentage:4%%
 
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = " "
-format-prefix-foreground = ${colors.foreground-alt}
+format-prefix = ""
+format-prefix-foreground = ${colors.foreground}
 format-underline = #4bffdc
-label = %percentage_used%%
+label = %percentage_used:4%%
 
 [module/wlan]
 type = internal/network
@@ -247,9 +255,9 @@ interface = enp3s0
 interval = 3.0
 
 format-connected-underline = #55aa55
-format-connected-prefix = " "
-format-connected-prefix-foreground = ${colors.foreground-alt}
-label-connected = %local_ip%
+format-connected-prefix = " "
+format-connected-prefix-foreground = ${colors.foreground}
+label-connected = %local_ip:4%
 
 format-disconnected =
 ;format-disconnected = <label-disconnected>
@@ -276,14 +284,18 @@ label = %date% %time%
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume = <label-volume> <bar-volume>
-label-volume = VOL %percentage%%
+format-volume = "<ramp-volume> <label-volume>"
+label-volume = "%percentage:3%%"
 label-volume-foreground = ${root.foreground}
 
-label-muted = " muted"
+label-muted = " %percentage:3%%"
 label-muted-foreground = #666
 
-bar-volume-width = 10
+ramp-volume-0 = ""
+ramp-volume-1 = ""
+ramp-volume-2 = ""
+
+bar-volume-width = 8
 bar-volume-foreground-0 = #55aa55
 bar-volume-foreground-1 = #55aa55
 bar-volume-foreground-2 = #55aa55
@@ -292,12 +304,12 @@ bar-volume-foreground-4 = #55aa55
 bar-volume-foreground-5 = #f5a70a
 bar-volume-foreground-6 = #ff5555
 bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
+bar-volume-indicator = ""
+bar-volume-indicator-font = 0
+bar-volume-fill = ""
+bar-volume-fill-font = 0
+bar-volume-empty = ""
+bar-volume-empty-font = 0
 bar-volume-empty-foreground = ${colors.foreground-alt}
 
 [module/alsa]
@@ -387,27 +399,12 @@ expand-right = true
 
 format-spacing = 1
 
-label-open = 
+label-open = ""
 label-open-foreground = ${colors.secondary}
-label-close =  cancel
+label-close = ""
 label-close-foreground = ${colors.secondary}
 label-separator = |
 label-separator-foreground = ${colors.foreground-alt}
-
-menu-0-0 = reboot
-menu-0-0-exec = menu-open-1
-menu-0-1 = power off
-menu-0-1-exec = menu-open-2
-
-menu-1-0 = cancel
-menu-1-0-exec = menu-open-0
-menu-1-1 = reboot
-menu-1-1-exec = sudo reboot
-
-menu-2-0 = power off
-menu-2-0-exec = sudo poweroff
-menu-2-1 = cancel
-menu-2-1-exec = menu-open-0
 
 [settings]
 screenchange-reload = true
