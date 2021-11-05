@@ -1,0 +1,158 @@
+/* 
+ * Author: henry3211439
+ * Last modification date: 2021/11/05
+ * Github: https://github.com/henry3211439/
+ */
+
+ configuration {
+    font: "Inter Bold 12";
+    show-icons: true;
+    display-drun: "";
+    drun-display-format: "{name}";
+    /* sidebar-mode: true; */
+    sort: true;
+    disable-history: true;
+    
+    hover-select: true;
+    kb-cancel: "Escape,Super+a";
+
+    me-select-entry: "";
+    me-accept-entry: "MousePrimary";
+}
+
+* {
+    /* Background Color */
+    background: rgba(0, 0, 0, 100%);
+    background-color: @background;
+    normal-background: @background;
+    alternate-normal-background: @background;
+
+    /* Foreground Color */
+    foreground: rgba(255, 255, 255, 70%);
+    foreground-color: @foreground;
+    normal-foreground: @foreground;
+    alternate-normal-foreground: @foreground;
+
+
+    /* text-color: #FF0000; */
+}
+
+window {
+    transparency: "real";
+    fullscreen: true;
+    
+    background-color: @background;
+    border: 0px;
+    border-color: rgba(0, 0, 0, 100%);
+}
+
+/* Begin inherit window */
+mainbox {
+    background-color: @background;
+	/* border: 0% 0% 0% 0%;
+    border-radius: 0% 0% 0% 0%;
+	border-color: @accent; */
+    children: [ inputbar, listview ];
+    spacing: 8%;
+    padding: 10% 10% 10% 10%;
+}
+
+inputbar {
+	children: [ prompt, entry ];
+    background-color: #FFFFFF33;
+
+    /* expand: false; */
+	border: 0.2%;
+    border-radius: 0.5% 0.5% 0.5% 0.5%;
+	border-color: @foreground;
+    
+    margin: 0% 30% 0% 30%;
+    padding: 1%;
+}
+/* End inherit window */
+
+/* Begin inherit inputbar */
+prompt {
+	background-color: @background;
+	padding: 0% 0.6% 0% -0.3%;
+}
+
+entry {
+    background-color: @background;
+
+    placeholder: "Search";
+    placeholder-color: #FFFFFF88;
+
+    blink: true;
+}
+/* End Inherit inputbar */
+
+listview {
+    background-color: inherit;
+
+    /* Disable a seperactor under the textbox */
+    border:       0px;
+    border-color: transparent;
+
+    /* Disable right side scrollbar  */
+    scrollbar:       0px;
+    scrollbar-color: transparent;
+
+    /* List icons apperance */
+    spacing: 2%;
+    columns: 7;
+    layout: vertical;
+    fixed-columns: true;
+
+    /* Not working? */
+    /* lines: 5; */
+    /* fixed-height: true; */
+
+    cycle: false;
+    dynamic: true;
+}
+
+/* Begin inherit listview */
+element {
+    background-color: @background;
+    foreground-color: @foreground;
+
+    orientation: vertical;
+    width: 10%;
+    padding: 2.5% 0% 2.5% 0%;
+    
+    border-radius: 1%;
+}
+
+element-icon {
+    background-color: inherit;
+    foreground-color: inherit;
+
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+
+    size: 8%;
+    border: 0px;
+    border-radius: inherit;
+}
+
+element-text {
+    background-color: inherit;
+    foreground-color: inherit;
+
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+
+    margin: 0.5% 0.5% -0.5% 0.5%;
+}
+
+element selected {
+    background-color: inherit;
+    foreground-color: inherit;
+    highlight: bold;
+
+	/* border: 0% 0% 0% 0%; */
+    border-radius: 12px;  
+    border-color: @foreground;
+}
+/* End Inherit lisview */
