@@ -62,9 +62,8 @@ editor     = os.getenv("EDITOR") or "vscodium"
 editor_cmd = terminal .. " -e " .. editor
 browser    = "firefox"
 filemgr    = "nemo"
-launcher   = "rofi -show run"
+launchpad  = "rofi -config ~/.config/rofi/launchpad.rasi -modi drun -show drun"
 --screenlocker = "gdbus monitor -y -d org.freedesktop.login1 | grep LockedHint"
-
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -176,7 +175,7 @@ screen.connect_signal("property::geometry", set_wallpaper)
 
 awful.screen.connect_for_each_screen(function(s)
     -- Wallpaper
-    set_wallpaper(s)
+    -- set_wallpaper(s)
 
     -- Each screen has its own tag table.
     awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
@@ -290,13 +289,13 @@ globalkeys = gears.table.join(
     --     { description = "jump to urgent client", group = "Window" }),
 
     -- App launcher
-    awful.key({ superkey },          "r", function() awful.spawn.with_shell(launcher) end,
-        { description = "Run prompt",          group = "Application" }),
+    awful.key({ superkey },          "a", function() awful.spawn.with_shell(launchpad) end,
+        { description = "Open launchpad",      group = "Application" }),
     awful.key({ "Control", altkey }, "t", function() awful.spawn(terminal) end,
         { description = "Open a Terminal",     group = "Application" }),
-    awful.key({ superkey, }, "b",         function() awful.spawn(browser)  end,
+    awful.key({ superkey, },         "b", function() awful.spawn(browser)  end,
         { description = "Open a Browser",      group = "Application" }),
-    awful.key({ superkey, }, "e",         function() awful.spawn(filemgr)  end,
+    awful.key({ superkey, },         "e", function() awful.spawn(filemgr)  end,
         { description = "Open a File Manager", group = "Application" }),
 
     -- Layout manipulation
@@ -634,3 +633,4 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 -- Startup
 awful.spawn.with_shell("~/.config/polybar/launch.sh")
 awful.spawn.with_shell("ibus-daemon --daemonize --replace --desktop=awesome")
+awful.spawn.with_shell("feh --randomize --bg-fill ~/Pictures/Wallpapers")
