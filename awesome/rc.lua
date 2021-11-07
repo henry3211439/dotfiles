@@ -484,7 +484,8 @@ awful.rules.rules = {
             keys = clientkeys,
             buttons = clientbuttons,
             screen = awful.screen.preferred,
-            placement = awful.placement.centered + awful.placement.no_overlap + awful.placement.no_offscreen
+            -- placement = awful.placement.centered + awful.placement.no_overlap + awful.placement.no_offscreen
+            placement = awful.placement.centered + awful.placement.no_offscreen
         }
     },
 
@@ -634,3 +635,4 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 awful.spawn.with_shell("~/.config/polybar/launch.sh")
 awful.spawn.with_shell("ibus-daemon --daemonize --replace --desktop=awesome")
 awful.spawn.with_shell("feh --randomize --bg-fill ~/Pictures/Wallpapers")
+awful.spawn.with_shell("picom -b --config ~/.config/picom/picom.conf")
