@@ -5,11 +5,9 @@
  */
 
  configuration {
-    font: "Inter Bold 12";
     show-icons: true;
-    display-drun: "";
+    display-drun: ">";
     drun-display-format: "{name}";
-    /* sidebar-mode: true; */
     sort: true;
     disable-history: true;
     
@@ -21,107 +19,110 @@
 }
 
 * {
-    /* Background Color */
-    background: rgba(0, 0, 0, 100%);
-    background-color: @background;
-    normal-background: @background;
-    alternate-normal-background: @background;
+    font: "Inter Bold 12";
 
-    /* Foreground Color */
-    foreground: rgba(255, 255, 255, 70%);
-    foreground-color: @foreground;
-    normal-foreground: @foreground;
-    alternate-normal-foreground: @foreground;
+    // Background color
+    background:                  Black;
+    background-color:            var(background);
+    alternate-background:        var(background);
+    alternate-background-color:  var(background);
+    alternate-normal-background: var(background);
 
+    // Foreground color 
+    foreground:                  LightGray;
+    foreground-color:            var(foreground);
+    alternate-foreground:        var(foreground);
+    alternate-foreground-color:  var(foreground);
+    alternate-normal-foreground: var(foreground);
+    alternate-normal-foreground: var(foreground);
 
-    /* text-color: #FF0000; */
+    // Border color
+    border-color: var(background);
+
+    text-color: White;
 }
 
 window {
-    transparency: "real";
+    background-color: var(background);
+    location: center;
+
     fullscreen: true;
-    
-    background-color: @background;
-    border: 0px;
-    border-color: rgba(0, 0, 0, 100%);
+    //margin: 8% 4%;
 }
 
-/* Begin inherit window */
 mainbox {
-    background-color: @background;
-	/* border: 0% 0% 0% 0%;
-    border-radius: 0% 0% 0% 0%;
-	border-color: @accent; */
     children: [ inputbar, listview ];
-    spacing: 8%;
-    padding: 10% 10% 10% 10%;
 }
 
 inputbar {
-	children: [ prompt, entry ];
-    background-color: #FFFFFF33;
+    background-color: rgba(200, 200, 200, 0.2);
 
-    /* expand: false; */
-	border: 0.2%;
-    border-radius: 0.5% 0.5% 0.5% 0.5%;
-	border-color: @foreground;
-    
-    margin: 0% 30% 0% 30%;
-    padding: 1%;
+    border:        0.4% 0.3%;
+    border-radius: 0.4% 0.3%;
+    border-color:  LightGray;
+
+    margin: 4% 32%;
+
+    text-color: White;
+    children: [ prompt, entry ];
 }
-/* End inherit window */
 
-/* Begin inherit inputbar */
 prompt {
-	background-color: @background;
-	padding: 0% 0.6% 0% -0.3%;
+    background-color: inherit;
+
+    horizontal-align: 0.5;
+    vertical-align:   0.5;
+
+    padding: 0% 1%;
 }
 
 entry {
-    background-color: @background;
-
-    placeholder: "Search";
-    placeholder-color: #FFFFFF88;
-
-    blink: true;
-}
-/* End Inherit inputbar */
-
-listview {
     background-color: inherit;
 
-    /* Disable a seperactor under the textbox */
-    border:       0px;
-    border-color: transparent;
-
-    /* Disable right side scrollbar  */
-    scrollbar:       0px;
-    scrollbar-color: transparent;
-
-    /* List icons apperance */
-    spacing: 2%;
-    columns: 7;
-    layout: vertical;
-    fixed-columns: true;
-
-    /* Not working? */
-    /* lines: 5; */
-    /* fixed-height: true; */
-
-    cycle: false;
-    dynamic: true;
+    padding: 1% 0.5%;
+    placeholder: "Search";
 }
 
-/* Begin inherit listview */
-element {
-    background-color: @background;
-    foreground-color: @foreground;
+listview {
+    border-color: var(background);
+
+    //margin: 2% 4%;
+    padding: 2% 4%;
 
     orientation: vertical;
-    width: 10%;
-    padding: 2.5% 0% 2.5% 0%;
-    
-    border-radius: 1%;
+    layout:      vertical;
+    flow:        horizontal;
+
+    //fixed-height:  true;
+    fixed-columns: true;
+
+    columns: 7;
+    dynamic: true;
+    cycle: false;
+    scrollbar: false;
+
+    children: [ element ];
+}
+
+element {
+    background-color: rgba(255, 255, 255, 1.0);
+    foreground-color: var(foreground);
+    border-color:     var(foreground);
+
+    border:        0em;
+    border-radius: 0.75em;
+
+    margin: 2% 1%;
+    padding: 2% 1%;
+
+    orientation: vertical;
+}
+
+element selected {
+    background-color: inherit;
+    foreground-color: inherit;
+
+    highlight: bold;
 }
 
 element-icon {
@@ -132,8 +133,6 @@ element-icon {
     vertical-align: 0.5;
 
     size: 8%;
-    border: 0px;
-    border-radius: inherit;
 }
 
 element-text {
@@ -141,18 +140,7 @@ element-text {
     foreground-color: inherit;
 
     horizontal-align: 0.5;
-    vertical-align: 0.5;
+    vertical-align:   0.5;
 
-    margin: 0.5% 0.5% -0.5% 0.5%;
+    border: 0px;
 }
-
-element selected {
-    background-color: inherit;
-    foreground-color: inherit;
-    highlight: bold;
-
-	/* border: 0% 0% 0% 0%; */
-    border-radius: 12px;  
-    border-color: @foreground;
-}
-/* End Inherit lisview */
