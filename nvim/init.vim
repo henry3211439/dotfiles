@@ -10,6 +10,10 @@ autocmd BufNewFile,BufRead *.sp setfiletype cpp
 set cursorline
 highlight CursorLine cterm=none ctermbg=DarkGray
 
+" Show tabs, spaces
+set list
+set listchars=tab:-->,space:.
+
 " Highlighting cursor line vertically
 " set cursorcolumn
 
