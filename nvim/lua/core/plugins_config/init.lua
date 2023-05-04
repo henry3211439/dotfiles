@@ -1,0 +1,7 @@
+require('core.plugins_config.lsp_config')
+require('core.plugins_config.cmp')
+require('core.plugins_config.lualine')
+require('core.plugins_config.telescope')
+require('core.plugins_config.indent-blankline')
+require('core.plugins_config.comment')
+require('core.plugins_config.nvim-tree')
