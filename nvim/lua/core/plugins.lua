@@ -1,3 +1,5 @@
+require('core.plugins_config')
+
 local ensure_packer = function()
     local fn = vim.fn
     local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
