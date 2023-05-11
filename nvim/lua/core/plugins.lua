@@ -15,9 +15,8 @@ local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
-    -- My plugins here
-    -- use 'foo1/bar1.nvim'
-    -- use 'foo2/bar2.nvim'
+
+    -- 
     use 'lukas-reineke/indent-blankline.nvim'
     use 'numToStr/Comment.nvim'
     use 'nvim-lualine/lualine.nvim'
@@ -25,21 +24,19 @@ return require('packer').startup(function(use)
     -- Apperance
     use 'nvim-tree/nvim-web-devicons'
     use 'folke/tokyonight.nvim'
-
-    -- Telescope
-    use {
-        'nvim-telescope/telescope.nvim',
-        tag = '0.1.1',
-        requires = {{ 'nvim-lua/plenary.nvim' }}
-    }
-
-    -- 
     use {
         'nvim-treesitter/nvim-treesitter',
         run = function()
             local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
             ts_update()
         end,
+    }
+
+    -- Telescope
+    use {
+        'nvim-telescope/telescope.nvim',
+        tag = '0.1.1',
+        requires = {{ 'nvim-lua/plenary.nvim' }}
     }
 
     -- Lualine
