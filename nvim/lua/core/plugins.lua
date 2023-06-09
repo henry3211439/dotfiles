@@ -19,11 +19,13 @@ return require('packer').startup(function(use)
     -- 
     use 'lukas-reineke/indent-blankline.nvim'
     use 'numToStr/Comment.nvim'
-    use 'nvim-lualine/lualine.nvim'
+    use 'windwp/nvim-autopairs'
 
     -- Apperance
     use 'nvim-tree/nvim-web-devicons'
+    use 'nvim-lualine/lualine.nvim'
     use 'folke/tokyonight.nvim'
+    use 'bluz71/vim-nightfly-colors'
     use {
         'nvim-treesitter/nvim-treesitter',
         run = function()
@@ -71,6 +73,14 @@ return require('packer').startup(function(use)
         -- 'Hoffs/omnisharp-extended-lsp.nvim',
         'Decodetalkers/csharpls-extended-lsp.nvim',
         -- 'onsails/lspkind.nvim',
+    }
+
+    -- Trouble
+    use {
+        'folke/trouble.nvim',
+        requires = {
+            'nvim-tree/nvim-web-devicons',
+        }
     }
 
     -- Automatically set up your configuration after cloning packer.nvim

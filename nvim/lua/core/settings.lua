@@ -36,6 +36,6 @@ opt.splitright = true
 
 opt.formatoptions = opt.formatoptions - 'cro'
 
-vim.cmd [[ colorscheme tokyonight ]]
+vim.cmd [[ colorscheme tokyonight-night ]]
 vim.cmd [[ highlight LineNr ctermbg=0 guifg=DarkCyan ]]
 vim.cmd [[ highlight CursorLineNr ctermbg=0 guifg=Yellow ]]
