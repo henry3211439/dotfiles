@@ -8,7 +8,8 @@ require('lspconfig')['csharp_ls'].setup({
     capabilities = capabilities,
 
     cmd = {
-        vim.fn.expand('$HOME/.dotnet/tools/csharp-ls'),
+        -- vim.fn.expand('$HOME/.dotnet/tools/csharp-ls'),
+        vim.fn.expand('$HOME/.local/share/nvim/mason/packages/csharp-language-server/csharp-ls'),
     },
 
     filetypes = { 'cs' },
