@@ -1,62 +1,46 @@
-require('plugins_config')
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 
-local ensure_packer = function()
-    local fn = vim.fn
-    local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-    if fn.empty(fn.glob(install_path)) > 0 then
-        fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
-        vim.cmd [[packadd packer.nvim]]
-        return true
-    end
-    return false
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        'git',
+        'clone',
+        '--filter=blob:none',
+        '--branch=stable', -- latest stable release
+        'https://github.com/folke/lazy.nvim.git',
+        lazypath,
+    })
 end
+vim.opt.rtp:prepend(lazypath)
 
-local packer_bootstrap = ensure_packer()
-
-return require('packer').startup(function(use)
-    use 'wbthomason/packer.nvim'
-
-    -- 
-    use 'lukas-reineke/indent-blankline.nvim'
-    use 'numToStr/Comment.nvim'
-    use 'windwp/nvim-autopairs'
+require('lazy').setup({
+    'lukas-reineke/indent-blankline.nvim',
+    'numToStr/Comment.nvim',
+    'windwp/nvim-autopairs',
 
     -- Apperance
-    use 'nvim-tree/nvim-web-devicons'
-    use 'nvim-lualine/lualine.nvim'
-    use 'folke/tokyonight.nvim'
-    use 'bluz71/vim-nightfly-colors'
-    use {
+    'nvim-tree/nvim-web-devicons',
+    'nvim-lualine/lualine.nvim',
+    'folke/tokyonight.nvim',
+    'bluz71/vim-nightfly-colors',
+    {
         'nvim-treesitter/nvim-treesitter',
-        run = function()
-            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-            ts_update()
-        end,
-    }
+        build = ':TSUpdate',
+    },
 
     -- Telescope
-    use {
+    {
         'nvim-telescope/telescope.nvim',
-        tag = '0.1.1',
-        requires = {{ 'nvim-lua/plenary.nvim' }}
-    }
+        dependencies = { 'nvim-lua/plenary.nvim' },
+    },
 
-    -- Lualine
-    use {
+    -- nvim-tree
+    {
         'nvim-lualine/lualine.nvim',
-        requires = { 'nvim-tree/nvim-web-devicons', opt = true },
-    }
-
-    -- nvim-Tree
-    use {
-        'nvim-tree/nvim-tree.lua',
-        requires = {
-            'nvim-tree/nvim-web-devicons',
-        },
-    }
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+    },
 
     -- LSP
-    use {
+    {
         'williamboman/mason.nvim',
         'williamboman/mason-lspconfig.nvim',
         'neovim/nvim-lspconfig',
@@ -73,19 +57,11 @@ return require('packer').startup(function(use)
         -- 'Hoffs/omnisharp-extended-lsp.nvim',
         'Decodetalkers/csharpls-extended-lsp.nvim',
         -- 'onsails/lspkind.nvim',
-    }
+    },
 
     -- Trouble
-    use {
+    {
         'folke/trouble.nvim',
-        requires = {
-            'nvim-tree/nvim-web-devicons',
-        }
-    }
-
-    -- Automatically set up your configuration after cloning packer.nvim
-    -- Put this at the end after all plugins
-    if packer_bootstrap then
-        require('packer').sync()
-    end
-end)
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+    },
+})
