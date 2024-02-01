@@ -18,7 +18,6 @@ require('lazy').setup({
     'windwp/nvim-autopairs',
 
     -- Apperance
-    'nvim-tree/nvim-web-devicons',
     'nvim-lualine/lualine.nvim',
     'folke/tokyonight.nvim',
     'bluz71/vim-nightfly-colors',
@@ -35,7 +34,7 @@ require('lazy').setup({
 
     -- nvim-tree
     {
-        'nvim-lualine/lualine.nvim',
+        'nvim-tree/nvim-tree.lua',
         dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
 
@@ -65,3 +64,5 @@ require('lazy').setup({
         dependencies = { 'nvim-tree/nvim-web-devicons' },
     },
 })
+
+require('plugins_config')
